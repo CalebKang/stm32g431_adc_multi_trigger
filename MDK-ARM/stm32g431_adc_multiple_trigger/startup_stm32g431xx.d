@@ -1,0 +1,1 @@
+stm32g431_adc_multiple_trigger\startup_stm32g431xx.o: startup_stm32g431xx.s

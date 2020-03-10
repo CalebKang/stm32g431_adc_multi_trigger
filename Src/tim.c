@@ -95,6 +95,13 @@ void MX_TIM1_Init(void)
   LL_TIM_OC_Init(TIM1, LL_TIM_CHANNEL_CH4, &TIM_OC_InitStruct);
   LL_TIM_OC_DisableFast(TIM1, LL_TIM_CHANNEL_CH4);
   TIM_InitStruct.Autoreload = 1000;
+  LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH5);
+  TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;
+  TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;
+  TIM_OC_InitStruct.CompareValue = 500;
+  LL_TIM_OC_Init(TIM1, LL_TIM_CHANNEL_CH5, &TIM_OC_InitStruct);
+  LL_TIM_OC_DisableFast(TIM1, LL_TIM_CHANNEL_CH5);
+  TIM_InitStruct.Autoreload = 1000;
   LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH6);
   TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;
   TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;

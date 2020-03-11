@@ -207,7 +207,9 @@ void ADC1_2_IRQHandler(void)
   {
     /* Clear flag ADC group regular end of unitary conversion */
     LL_ADC_ClearFlag_EOC(ADC1);
-		LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_4);
+		LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_4);
+		LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_4);
+		LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_4);
   }
   /* USER CODE END ADC1_2_IRQn 0 */
   
@@ -225,6 +227,12 @@ void TIM1_BRK_TIM15_IRQHandler(void)
 	if(LL_TIM_IsActiveFlag_BRK(TIM1) == 1)
 	{
 		LL_TIM_ClearFlag_BRK(TIM1);
+		LL_TIM_DisableIT_BRK(TIM1);
+	}
+	
+	if(LL_TIM_IsActiveFlag_BRK2(TIM1) == 1)
+	{
+		LL_TIM_ClearFlag_BRK2(TIM1);
 		LL_TIM_DisableIT_BRK(TIM1);
 	}
   /* USER CODE END TIM1_BRK_TIM15_IRQn 0 */

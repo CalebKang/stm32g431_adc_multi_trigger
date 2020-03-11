@@ -38,7 +38,8 @@ void MX_TIM1_Init(void)
   
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOC);
   /**TIM1 GPIO Configuration  
-  PC13   ------> TIM1_BKIN 
+  PC13   ------> TIM1_BKIN
+  PC3   ------> TIM1_BKIN2 
   */
   GPIO_InitStruct.Pin = LL_GPIO_PIN_13;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
@@ -46,6 +47,14 @@ void MX_TIM1_Init(void)
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
   GPIO_InitStruct.Alternate = LL_GPIO_AF_2;
+  LL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_3;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Alternate = LL_GPIO_AF_6;
   LL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /* TIM1 interrupt Init */
@@ -88,6 +97,7 @@ void MX_TIM1_Init(void)
   LL_TIM_OC_DisableFast(TIM1, LL_TIM_CHANNEL_CH3);
   TIM_InitStruct.Autoreload = 1000;
   LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH4);
+  TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_PWM2;
   TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;
   TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;
   TIM_OC_InitStruct.CompareValue = 500;
@@ -96,6 +106,7 @@ void MX_TIM1_Init(void)
   LL_TIM_OC_DisableFast(TIM1, LL_TIM_CHANNEL_CH4);
   TIM_InitStruct.Autoreload = 1000;
   LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH5);
+  TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_PWM1;
   TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;
   TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;
   TIM_OC_InitStruct.CompareValue = 500;
@@ -103,6 +114,7 @@ void MX_TIM1_Init(void)
   LL_TIM_OC_DisableFast(TIM1, LL_TIM_CHANNEL_CH5);
   TIM_InitStruct.Autoreload = 1000;
   LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH6);
+  TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_PWM2;
   TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;
   TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;
   TIM_OC_InitStruct.CompareValue = 750;
@@ -115,15 +127,16 @@ void MX_TIM1_Init(void)
   LL_TIM_SetTriggerOutput2(TIM1, LL_TIM_TRGO2_OC4_RISING_OC6_RISING);
   LL_TIM_DisableMasterSlaveMode(TIM1);
   LL_TIM_SetBreakInputSourcePolarity(TIM1, LL_TIM_BREAK_INPUT_BKIN, LL_TIM_BKIN_SOURCE_BKIN, LL_TIM_BKIN_POLARITY_HIGH);
-  TIM_BDTRInitStruct.OSSRState = LL_TIM_OSSR_DISABLE;
-  TIM_BDTRInitStruct.OSSIState = LL_TIM_OSSI_DISABLE;
+  LL_TIM_SetBreakInputSourcePolarity(TIM1, LL_TIM_BREAK_INPUT_BKIN2, LL_TIM_BKIN_SOURCE_BKIN, LL_TIM_BKIN_POLARITY_HIGH);
+  TIM_BDTRInitStruct.OSSRState = LL_TIM_OSSR_ENABLE;
+  TIM_BDTRInitStruct.OSSIState = LL_TIM_OSSI_ENABLE;
   TIM_BDTRInitStruct.LockLevel = LL_TIM_LOCKLEVEL_OFF;
   TIM_BDTRInitStruct.DeadTime = 0;
   TIM_BDTRInitStruct.BreakState = LL_TIM_BREAK_ENABLE;
   TIM_BDTRInitStruct.BreakPolarity = LL_TIM_BREAK_POLARITY_HIGH;
   TIM_BDTRInitStruct.BreakFilter = LL_TIM_BREAK_FILTER_FDIV1;
   TIM_BDTRInitStruct.BreakAFMode = LL_TIM_BREAK_AFMODE_INPUT;
-  TIM_BDTRInitStruct.Break2State = LL_TIM_BREAK2_DISABLE;
+  TIM_BDTRInitStruct.Break2State = LL_TIM_BREAK2_ENABLE;
   TIM_BDTRInitStruct.Break2Polarity = LL_TIM_BREAK2_POLARITY_HIGH;
   TIM_BDTRInitStruct.Break2Filter = LL_TIM_BREAK2_FILTER_FDIV1;
   TIM_BDTRInitStruct.Break2AFMode = LL_TIM_BREAK_AFMODE_INPUT;

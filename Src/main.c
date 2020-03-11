@@ -58,6 +58,7 @@ void Initialize_ADC(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t g_gpio = 0;
+uint8_t g_gpio2 = 0;
 /* USER CODE END 0 */
 
 /**
@@ -144,7 +145,18 @@ int main(void)
 			LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_10);			
 		}
 		
+		// br2
+		if(g_gpio2 == 0)
+		{
+			LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_4);
+		}
+		else
+		{
+			LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_4);			
+		}
 		
+		
+		//br1
 		if(LL_TIM_IsActiveFlag_BRK(TIM1) == 0)
 		{
 			if(LL_TIM_IsEnabledIT_BRK(TIM1) != 1)
@@ -156,6 +168,20 @@ int main(void)
 		{
 			LL_TIM_ClearFlag_BRK(TIM1);
 		}
+		
+		//br2
+		if(LL_TIM_IsActiveFlag_BRK(TIM1) == 0)
+		{
+			if(LL_TIM_IsEnabledIT_BRK(TIM1) != 1)
+			{
+				LL_TIM_EnableIT_BRK(TIM1);
+			}
+		}
+		else
+		{
+			LL_TIM_ClearFlag_BRK(TIM1);
+		}
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

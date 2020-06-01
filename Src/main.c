@@ -134,6 +134,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		LL_TIM_EnableAllOutputs(TIM1);
 		
 		//Test Break GPIO when 
 		if(g_gpio == 0)
